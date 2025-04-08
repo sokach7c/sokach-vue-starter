@@ -26,7 +26,13 @@ import {
 import { useNamespace, usePriorityValues } from '@vben/hooks';
 import { $t } from '@vben/locales';
 import { usePreferences } from '@vben/preferences';
-import { cloneDeep, cn, isEqual, mergeWithArrayOverride } from '@vben/utils';
+import {
+  cloneDeep,
+  cn,
+  isBoolean,
+  isEqual,
+  mergeWithArrayOverride,
+} from '@vben/utils';
 
 import { VxeGrid, VxeUI } from 'vxe-table';
 
@@ -66,10 +72,30 @@ const {
   formOptions,
   tableTitle,
   showSearchForm,
+  separator,
 } = usePriorityValues(props, state);
 
 const { isMobile } = usePreferences();
-
+const isSeparator = computed(() => {
+  if (
+    !formOptions.value ||
+    showSearchForm.value === false ||
+    separator.value === false
+  ) {
+    return false;
+  }
+  if (separator.value === true || separator.value === undefined) {
+    return true;
+  }
+  return separator.value.show !== false;
+});
+const separatorBg = computed(() => {
+  return !separator.value ||
+    isBoolean(separator.value) ||
+    !separator.value.backgroundColor
+    ? undefined
+    : separator.value.backgroundColor;
+});
 const slots: SetupContext['slots'] = useSlots();
 
 const [Form, formApi] = useTableForm({
@@ -370,8 +396,14 @@ onUnmounted(() => {
           :class="
             cn(
               'relative rounded py-3',
-              isCompactForm ? 'pb-8' : 'pb-4',
               b('form'),
+              isCompactForm
+                ? isSeparator
+                  ? 'pb-8'
+                  : 'pb-4'
+                : isSeparator
+                  ? 'pb-4'
+                  : 'pb-0',
             )
           "
         >
@@ -405,6 +437,13 @@ onUnmounted(() => {
             v-if="vxeCustomSlots?.dividerRender"
             :is="vxeCustomSlots?.dividerRender"
           />
+          <div
+            v-if="isSeparator"
+            :style="{
+              ...(separatorBg ? { backgroundColor: separatorBg } : undefined),
+            }"
+            class="bg-background-deep z-100 absolute -left-2 bottom-1 h-2 w-[calc(100%)] overflow-hidden md:bottom-2 md:h-3"
+          ></div>
         </div>
       </template>
       <!-- loading -->
