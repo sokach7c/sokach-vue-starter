@@ -9,6 +9,10 @@
       "path": "apps/web-antd",
     },
     {
+      "name": "web-dev",
+      "path": "apps/web-dev",
+    },
+    {
       "name": "@vben/web-ele",
       "path": "apps/web-ele",
     },
@@ -101,6 +105,10 @@
       "path": "packages/@core/ui-kit/tabs-ui",
     },
     {
+      "name": "@sokach/components",
+      "path": "packages/components",
+    },
+    {
       "name": "@vben/constants",
       "path": "packages/constants",
     },
@@ -135,6 +143,34 @@
     {
       "name": "@vben/locales",
       "path": "packages/locales",
+    },
+    {
+      "name": "@sokach/amap",
+      "path": "packages/plugins/amap",
+    },
+    {
+      "name": "@@sokach/art-player",
+      "path": "packages/plugins/art-player",
+    },
+    {
+      "name": "@sokach/codemirror",
+      "path": "packages/plugins/codemirror",
+    },
+    {
+      "name": "@sokach/face-detection",
+      "path": "packages/plugins/face-detection",
+    },
+    {
+      "name": "@sokach/office",
+      "path": "packages/plugins/office",
+    },
+    {
+      "name": "@sokach/vue-data-ui",
+      "path": "packages/plugins/vue-data-ui",
+    },
+    {
+      "name": "@sokach/vxe-table",
+      "path": "packages/plugins/vxe-table",
     },
     {
       "name": "@vben/preferences",
