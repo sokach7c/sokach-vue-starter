@@ -1,0 +1,18 @@
+{
+  "name": "@sokach/office",
+  "version": "5.5.9",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "default": "./src/index.ts"
+    }
+  },
+  "dependencies": {
+    "@vue-office/docx": "^1.6.3",
+    "@vue-office/excel": "^1.7.14",
+    "@vue-office/pdf": "^2.0.10",
+    "vue": "catalog:",
+    "vue-demi": "^0.14.10"
+  }
+}

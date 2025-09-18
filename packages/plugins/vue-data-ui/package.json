@@ -1,0 +1,15 @@
+{
+  "name": "@sokach/vue-data-ui",
+  "version": "5.5.9",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "default": "./src/index.ts"
+    }
+  },
+  "dependencies": {
+    "vue": "catalog:",
+    "vue-data-ui": "^3.1.3"
+  }
+}

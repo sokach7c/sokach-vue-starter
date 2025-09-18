@@ -52,7 +52,11 @@
     "vitepress",
     "vnode",
     "vueuse",
-    "yxxx"
+    "yxxx",
+    "sokach",
+    "amap",
+    "cascader",
+    "encrypter"
   ],
   "ignorePaths": [
     "**/node_modules/**",

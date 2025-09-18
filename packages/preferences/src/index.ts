@@ -7,9 +7,74 @@ import type { DeepPartial } from '@vben-core/typings';
  * @param preferences
  * @returns
  */
-
 function defineOverridesPreferences(preferences: DeepPartial<Preferences>) {
-  return preferences;
+  return {
+    app: {
+      /**
+       * 不需要refresh token 由后端处理
+       */
+      enableRefreshToken: false,
+      /**
+       * 这里可以设置默认头像 url链接或vite导入的图片链接
+       */
+      defaultAvatar: '/img/avatar.jpg',
+    },
+    footer: {
+      /**
+       * 不显示footer
+       */
+      enable: false,
+    },
+    tabbar: {
+      /**
+       * 标签tab 持久化 关闭
+       */
+      persist: false,
+      /**
+       * 标签页样式
+       */
+      styleType: 'plain',
+    },
+    theme: {
+      /**
+       * 默认用日间模式
+       */
+      mode: 'light',
+      /**
+       * 深色侧边栏
+       */
+      semiDarkSidebar: true,
+    },
+    /**
+     * 设置默认的logo
+     */
+    logo: {
+      enable: true,
+      source: '/img/logo.png',
+    },
+    widget: {
+      /**
+       * 搜索
+       */
+      globalSearch: false,
+
+      /**
+       * 多语言
+       */
+      languageToggle: false,
+
+      /**
+       * 锁屏
+       */
+      lockScreen: false,
+
+      /**
+       * 主题切换
+       */
+      themeToggle: false,
+    },
+    ...preferences,
+  } as Preferences;
 }
 
 export { defineOverridesPreferences };

@@ -1,0 +1,17 @@
+{
+  "name": "@sokach/face-detection",
+  "version": "5.5.9",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "default": "./src/index.ts"
+    }
+  },
+  "dependencies": {
+    "@mediapipe/camera_utils": "^0.3.1675466862",
+    "@mediapipe/face_detection": "^0.4.1646425229",
+    "@vben/icons": "workspace:*",
+    "vue": "catalog:"
+  }
+}

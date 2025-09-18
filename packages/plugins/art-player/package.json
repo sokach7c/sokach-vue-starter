@@ -1,0 +1,15 @@
+{
+  "name": "@@sokach/art-player",
+  "version": "5.5.6",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "default": "./src/index.ts"
+    }
+  },
+  "dependencies": {
+    "artplayer": "^5.2.5",
+    "vue": "catalog:"
+  }
+}

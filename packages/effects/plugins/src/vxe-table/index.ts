@@ -7,4 +7,5 @@ export type {
   VxeGridListeners,
   VxeGridProps,
   VxeGridPropTypes,
+  VxeUI,
 } from 'vxe-table';
