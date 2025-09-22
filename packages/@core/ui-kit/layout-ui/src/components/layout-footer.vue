@@ -3,6 +3,8 @@ import type { CSSProperties } from 'vue';
 
 import { computed } from 'vue';
 
+import { useNamespace } from '@vben-core/composables';
+
 interface Props {
   /**
    * 是否固定在底部
@@ -22,6 +24,8 @@ const props = withDefaults(defineProps<Props>(), {
   show: true,
 });
 
+const { b } = useNamespace('layout-footer');
+
 const style = computed((): CSSProperties => {
   const { fixed, height, show, width, zIndex } = props;
   return {
@@ -37,6 +41,7 @@ const style = computed((): CSSProperties => {
 <template>
   <footer
     :style="style"
+    :class="b()"
     class="bg-background-deep bottom-0 w-full transition-all duration-200"
   >
     <slot></slot>

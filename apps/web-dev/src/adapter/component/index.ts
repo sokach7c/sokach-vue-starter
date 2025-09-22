@@ -11,9 +11,16 @@ import type { Recordable } from '@vben/types';
 import { defineAsyncComponent, defineComponent, h, ref } from 'vue';
 
 import { ApiComponent, globalShareState, IconPicker } from '@vben/common-ui';
-import { $t } from '@vben/locales';
 
 import { notification } from 'ant-design-vue';
+
+const CodeMirror = defineAsyncComponent(() =>
+  import('@sokach/codemirror').then((res) => res.CodeMirror),
+);
+
+const Camera = defineAsyncComponent(() =>
+  import('@sokach/components').then((res) => res.Camera),
+);
 
 const FileUpload = defineAsyncComponent(() =>
   import('#/components/upload').then((res) => res.FileUpload),
@@ -87,9 +94,9 @@ const withDefaultPlaceholder = <T extends Component>(
     inheritAttrs: false,
     setup: (props: any, { attrs, expose, slots }) => {
       const placeholder =
-        props?.placeholder ||
-        attrs?.placeholder ||
-        $t(`ui.placeholder.${type}`);
+        props?.placeholder || attrs?.placeholder || type === 'input'
+          ? '请输入'
+          : '请选择';
       // 透传组件暴露的方法
       const innerRef = ref();
       expose(
@@ -116,8 +123,10 @@ export type ComponentType =
   | 'ApiSelect'
   | 'ApiTreeSelect'
   | 'AutoComplete'
+  | 'Camera'
   | 'Checkbox'
   | 'CheckboxGroup'
+  | 'CodeMirror'
   | 'ColorPicker'
   | 'DatePicker'
   | 'DefaultButton'
@@ -214,6 +223,8 @@ async function initComponentAdapter() {
     ImageUpload,
     ColorPicker,
     RichTextEditor,
+    Camera,
+    CodeMirror,
   };
 
   // 将组件注册到全局共享状态中

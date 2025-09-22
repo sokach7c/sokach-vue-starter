@@ -2,6 +2,8 @@ import type { VxeTableGridOptions } from '@sokach/vxe-table';
 
 import { setupVbenVxeTable, useVbenVxeGrid } from '@sokach/vxe-table';
 
+import { setupVxeTableCell } from '#/components/table';
+
 import { useVbenForm } from './form';
 
 setupVbenVxeTable({
@@ -84,6 +86,11 @@ setupVbenVxeTable({
         vxeUI.renderer.delete(key);
       }
     });
+
+    /**
+     * 自定义 cell 配置注册
+     */
+    setupVxeTableCell(vxeUI);
 
     // 这里可以自行扩展 vxe-table 的全局配置，比如自定义格式化
     // vxeUI.formats.add

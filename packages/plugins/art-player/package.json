@@ -1,6 +1,6 @@
 {
-  "name": "@@sokach/art-player",
-  "version": "5.5.6",
+  "name": "@sokach/art-player",
+  "version": "5.5.9",
   "type": "module",
   "exports": {
     ".": {

@@ -1,6 +1,6 @@
-import type { DictItem } from '@sokach/api';
+import type { DictItem } from './dict-item';
 
-import { requestClient } from '@sokach/utils';
+import { requestClient } from '../request';
 
 enum Api {
   list = '/system/dict/list',

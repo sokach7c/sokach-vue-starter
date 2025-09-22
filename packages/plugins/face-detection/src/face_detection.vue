@@ -10,6 +10,8 @@ import {
   watch,
 } from 'vue';
 
+import { VbenIcon } from '@vben/icons';
+
 import { Camera } from '@mediapipe/camera_utils';
 import { FaceDetection } from '@mediapipe/face_detection';
 
@@ -84,7 +86,7 @@ const props = withDefaults(defineProps<Props>(), {
   }),
   autoStart: true,
   // modelUrl: 'https://cdn.jsdelivr.net/npm/@mediapipe/face_detection',
-  modelUrl: '/mediapipe',
+  modelUrl: '/model',
 });
 
 const emit = defineEmits<Emits>();
@@ -524,8 +526,8 @@ defineExpose({
               class="mx-auto flex h-16 w-16 animate-pulse items-center justify-center rounded-full"
             >
               <VbenIcon
-                icon="loader-circle"
-                class="h-8 w-8 animate-spin text-white"
+                icon="line-md:loading-loop"
+                class="h-8 w-8 text-white"
               />
             </div>
           </div>

@@ -100,6 +100,7 @@ const headerEnable = defineModel<boolean>('headerEnable');
 const headerMode = defineModel<LayoutHeaderModeType>('headerMode');
 const headerMenuAlign =
   defineModel<LayoutHeaderMenuAlignType>('headerMenuAlign');
+const headerHeight = defineModel<number>('headerHeight');
 
 const breadcrumbEnable = defineModel<boolean>('breadcrumbEnable');
 const breadcrumbShowIcon = defineModel<boolean>('breadcrumbShowIcon');
@@ -333,6 +334,7 @@ async function handleReset() {
                 v-model:header-menu-align="headerMenuAlign"
                 v-model:header-mode="headerMode"
                 :disabled="isFullContent"
+                v-model:header-height="headerHeight"
               />
             </Block>
 

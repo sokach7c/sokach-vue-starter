@@ -3,7 +3,7 @@ import type { MaybePromise } from '@vben/types';
 
 import { ref } from 'vue';
 
-import { usePrompt } from '@sokach/adapter';
+import { Modal } from 'ant-design-vue';
 import { isFunction } from 'lodash-es';
 
 interface BeforeCloseDiffProps {
@@ -32,7 +32,6 @@ interface BeforeCloseDiffProps {
  * @returns hook
  */
 export function useBeforeCloseDiff(props: BeforeCloseDiffProps) {
-  const { modal } = usePrompt();
   const { initializedGetter, currentGetter, compare } = props;
   /**
    * 记录初始值 json
@@ -85,7 +84,7 @@ export function useBeforeCloseDiff(props: BeforeCloseDiffProps) {
 
       // 数据有变化，显示确认对话框
       return new Promise<boolean>((resolve) => {
-        modal.confirm({
+        Modal.confirm({
           title: '提示',
           content: '您有未保存的更改，确认要退出吗？',
           centered: true,

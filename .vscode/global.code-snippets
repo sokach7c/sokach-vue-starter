@@ -3,35 +3,30 @@
     "scope": "javascript,typescript",
     "prefix": "im",
     "body": ["import { $2 } from '$1';"],
-    "description": "Import a module",
+    "description": "Import a module"
   },
   "export-all": {
     "scope": "javascript,typescript",
     "prefix": "ex",
     "body": ["export * from '$1';"],
-    "description": "Export a module",
+    "description": "Export a module"
   },
   "vue-script-setup": {
     "scope": "vue",
     "prefix": "v3",
     "body": [
-      "<script setup lang=\"ts\">",
-      "const props = defineProps<{",
-      "  modelValue?: boolean,",
-      "}>()",
-      "$1",
-      "</script>",
+      "<script setup lang=\"ts\"></script>",
       "",
       "<template>",
-      "  <div>",
-      "    <slot/>",
-      "  </div>",
+      "  <div>组件内容</div>",
       "</template>",
-    ],
+      "",
+      "<style scoped lang=\"scss\"></style>"
+    ]
   },
   "vue-computed": {
     "scope": "javascript,typescript,vue",
     "prefix": "com",
-    "body": ["computed(() => { $1 })"],
-  },
+    "body": ["computed(() => { $1 })"]
+  }
 }

@@ -17,7 +17,6 @@
     }
   },
   "dependencies": {
-    "@iconify/json": "catalog:",
     "@vben-core/icons": "workspace:*",
     "@vben-core/shadcn-ui": "workspace:*"
   }

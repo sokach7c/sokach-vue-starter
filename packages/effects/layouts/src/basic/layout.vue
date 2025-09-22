@@ -353,6 +353,13 @@ const headerSlots = computed(() => {
         </template>
       </VbenLogo>
     </template>
+    <!-- 侧边栏上下区域内容 -->
+    <template #side-header>
+      <slot name="side-header"></slot>
+    </template>
+    <template #side-footer>
+      <slot name="side-footer"></slot>
+    </template>
 
     <template #tabbar>
       <LayoutTabbar

@@ -14,9 +14,13 @@ import { languageExtensions } from './helper';
 const props = withDefaults(
   defineProps<{
     /**
+     * 高度
+     */
+    height?: number | string;
+    /**
      * 语言
      */
-    language: LanguageType;
+    language?: LanguageType;
     /**
      * 只读
      */
@@ -25,6 +29,7 @@ const props = withDefaults(
   {
     language: 'javascript',
     readonly: false,
+    height: 'auto',
   },
 );
 
@@ -35,7 +40,7 @@ const { isDark } = usePreferences();
 
 const modelValue = defineModel({ default: '', type: String });
 
-const lang = computed(() => languageExtensions[props.language] ?? javascript());
+const lang = computed(() => languageExtensions[props.language] || javascript());
 
 // 通过v-if 卸载挂载达到更新语言的目的
 const langChanged = ref(true);
@@ -62,6 +67,9 @@ const extensions = [oneDark];
     :readonly="props.readonly"
     basic
     wrap
+    :class="{
+      [`h-[${props.height}px]`]: props.height !== 'auto',
+    }"
   >
     <template v-for="slotName in Object.keys($slots)" #[slotName]="scope">
       <slot :name="slotName" v-bind="scope ?? {}"></slot>

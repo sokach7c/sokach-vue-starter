@@ -33,12 +33,17 @@ async function handleLogout() {
   await authStore.logout(false);
 }
 
+// 折叠侧边栏
+// function handleCollapse() {
+//   updatePreferences({ sidebar: { collapsed: !preferences.sidebar.collapsed } });
+// }
+
 watch(
   () => preferences.app.watermark,
   async (enable) => {
     if (enable) {
       await updateWatermark({
-        content: `${userStore.userInfo?.username} - ${userStore.userInfo?.realName}`,
+        content: `${userStore.userInfo?.username} - ${userStore.userInfo?.nickname}`,
       });
     } else {
       destroyWatermark();
@@ -52,11 +57,19 @@ watch(
 
 <template>
   <BasicLayout @clear-preferences-and-logout="handleLogout">
+    <!-- 侧边栏插槽 -->
+    <!-- <template #side-header> </template> -->
+    <!-- <template #side-footer> </template> -->
+
+    <!-- 顶栏插槽：header-left-xxx, 大于 50 放在右边，小于 50 放在左边 -->
+    <template #header-left-5> </template>
+
+    <!-- 用户下拉菜单插槽 -->
     <template #user-dropdown>
       <UserDropdown
         :avatar
         :menus
-        :text="userStore.userInfo?.realName"
+        :text="userStore.userInfo?.nickname"
         description="ann.vben@gmail.com"
         tag-text="Pro"
         @logout="handleLogout"

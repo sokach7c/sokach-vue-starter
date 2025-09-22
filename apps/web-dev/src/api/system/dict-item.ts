@@ -1,4 +1,4 @@
-import { requestClient } from '@sokach/utils';
+import { requestClient } from '../request';
 
 enum Api {
   list = '/system/dict-item/list',

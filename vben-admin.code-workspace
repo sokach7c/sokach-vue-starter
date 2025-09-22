@@ -149,7 +149,7 @@
       "path": "packages/plugins/amap",
     },
     {
-      "name": "@@sokach/art-player",
+      "name": "@sokach/art-player",
       "path": "packages/plugins/art-player",
     },
     {

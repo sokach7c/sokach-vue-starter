@@ -3,6 +3,7 @@ import type { CSSProperties } from 'vue';
 
 import { computed, shallowRef, useSlots, watchEffect } from 'vue';
 
+import { useNamespace } from '@vben-core/composables';
 import { VbenScrollbar } from '@vben-core/shadcn-ui';
 
 import { useScrollLock } from '@vueuse/core';
@@ -117,6 +118,8 @@ const slots = useSlots();
 const asideRef = shallowRef<HTMLDivElement | null>();
 
 const hiddenSideStyle = computed((): CSSProperties => calcMenuWidthStyle(true));
+
+const { b } = useNamespace('layout-sidebar');
 
 const style = computed((): CSSProperties => {
   const { isSidebarMixed, marginTop, paddingTop, zIndex } = props;
@@ -266,9 +269,10 @@ function handleMouseleave() {
         'bg-sidebar-deep': isSidebarMixed,
         'bg-sidebar border-border border-r': !isSidebarMixed,
       },
+      b(),
     ]"
-    :style="style"
     class="fixed left-0 top-0 h-full transition-all duration-150"
+    :style="style"
     @mouseenter="handleMouseenter"
     @mouseleave="handleMouseleave"
   >
@@ -280,7 +284,9 @@ function handleMouseleave() {
       <slot name="logo"></slot>
     </div>
     <VbenScrollbar :style="contentStyle" shadow shadow-border>
+      <slot name="side-header"></slot>
       <slot></slot>
+      <slot name="side-footer"></slot>
     </VbenScrollbar>
 
     <div :style="collapseStyle"></div>

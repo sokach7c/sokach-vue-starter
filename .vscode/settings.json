@@ -114,6 +114,7 @@
   },
 
   "typescript.tsserver.exclude": ["**/node_modules", "**/dist", "**/.turbo"],
+  "typescript.tsserver.maxTsServerMemory": 4096,
 
   // search
   "search.searchEditor.singleClickBehaviour": "peekDefinition",

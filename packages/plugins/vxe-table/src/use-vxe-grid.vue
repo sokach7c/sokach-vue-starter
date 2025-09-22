@@ -46,7 +46,6 @@ import { useTableForm } from './init';
 
 import 'vxe-table/styles/cssvar.scss';
 import 'vxe-pc-ui/styles/cssvar.scss';
-import './style.css';
 
 interface Props extends VxeGridProps {
   api: ExtendedVxeGridApi;

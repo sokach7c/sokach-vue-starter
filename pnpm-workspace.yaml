@@ -15,7 +15,6 @@ packages:
   - scripts/*
   - docs
   - playground
-  - packages/plugins/*
 
 catalog:
   '@ast-grep/napi': ^0.37.0

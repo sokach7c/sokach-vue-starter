@@ -29,7 +29,7 @@ export interface RichTextEditorProps {
  */
 export interface RichTextEditorEmits {
   (e: 'update:modelValue', value: string): void;
-  (e: 'blur', editor: IDomEditor): void;
+  (e: 'created', editor: IDomEditor): void;
 }
 
 /**

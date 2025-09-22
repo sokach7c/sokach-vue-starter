@@ -9,6 +9,7 @@ import {
   SCROLL_FIXED_CLASS,
   useLayoutFooterStyle,
   useLayoutHeaderStyle,
+  useNamespace,
 } from '@vben-core/composables';
 import { Menu } from '@vben-core/icons';
 import { VbenIconButton } from '@vben-core/shadcn-ui';
@@ -75,6 +76,8 @@ const sidebarExpandOnHover = defineModel<boolean>('sidebarExpandOnHover', {
   default: false,
 });
 const sidebarEnable = defineModel<boolean>('sidebarEnable', { default: true });
+
+const { b } = useNamespace('layout');
 
 // side是否处于hover状态展开菜单中
 const sidebarExpandOnHovering = ref(false);
@@ -481,7 +484,7 @@ const idMainContent = ELEMENT_ID_MAIN_CONTENT;
 </script>
 
 <template>
-  <div class="relative flex min-h-full w-full">
+  <div class="relative flex min-h-full w-full" :class="b()">
     <LayoutSidebar
       v-if="sidebarEnableState"
       v-model:collapse="sidebarCollapse"
@@ -516,6 +519,13 @@ const idMainContent = ELEMENT_ID_MAIN_CONTENT;
         <slot name="menu"></slot>
       </template>
 
+      <template #side-header>
+        <slot name="side-header"></slot>
+      </template>
+      <template #side-footer>
+        <slot name="side-footer"></slot>
+      </template>
+
       <template #extra>
         <slot name="side-extra"></slot>
       </template>
@@ -527,6 +537,7 @@ const idMainContent = ELEMENT_ID_MAIN_CONTENT;
     <div
       ref="contentRef"
       class="flex flex-1 flex-col overflow-hidden transition-all duration-300 ease-in"
+      :class="b('wrapper')"
     >
       <div
         :class="[
@@ -534,6 +545,7 @@ const idMainContent = ELEMENT_ID_MAIN_CONTENT;
             'shadow-[0_16px_24px_hsl(var(--background))]': scrollY > 20,
           },
           SCROLL_FIXED_CLASS,
+          b('wrapper-header'),
         ]"
         :style="headerWrapperStyle"
         class="overflow-hidden transition-all duration-200"

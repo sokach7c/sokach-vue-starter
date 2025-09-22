@@ -152,7 +152,8 @@
     "menuAlign": "Menu Align",
     "menuAlignStart": "Start",
     "menuAlignEnd": "End",
-    "menuAlignCenter": "Center"
+    "menuAlignCenter": "Center",
+    "height": "Height"
   },
   "footer": {
     "title": "Footer",

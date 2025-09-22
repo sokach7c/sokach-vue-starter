@@ -20,7 +20,7 @@ export namespace Auth {
 
   // 登录接口返回值
   export interface LoginRes {
-    token: string;
+    accessToken: string;
   }
 
   // 获取用户的

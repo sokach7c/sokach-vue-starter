@@ -102,7 +102,10 @@
   "pnpm": {
     "peerDependencyRules": {
       "allowedVersions": {
-        "eslint": "*"
+        "eslint": "*",
+        "vite": "*",
+        "@vueuse/core": "*",
+        "vue-types": "*"
       }
     },
     "overrides": {

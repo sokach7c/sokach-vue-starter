@@ -44,7 +44,7 @@ interface UserInfo extends BasicUserInfo {
   /**
    * accessToken
    */
-  token: string;
+  accessToken: string;
 }
 
 export type { UserInfo };
