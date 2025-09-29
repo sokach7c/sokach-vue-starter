@@ -1,82 +1,68 @@
-import { requestClient } from '../request';
+import {requestClient} from '#/api/request';
 
 enum Api {
-  list = '/system/dict-item/list',
-  root = '/system/dict-item',
+    list = '/system/dict-item/list',
+    root = '/system/dict-item',
 }
 
-/**
- * 类型
- */
+// 字典项类型
 export namespace DictItem {
-  /**
-   * 请求参数
-   */
-  export interface Req {
-    color: string;
-    description: string;
-    dictId: ID;
-    label: string;
-    sort: number;
-    status: number;
-    value: string;
-  }
-
-  /**
-   * 响应
-   */
-  export type Res = BaseEntity &
-    Req & {
-      id: ID;
+    export interface Req {
+        label: string;
+        value: string;
+        color: string;
+        sort: number;
+        description: string;
+        status: number;
+        dictId: number;
+    }
+    export type Res =  Req & {
+        id: ID;
+        createUser: number;
+        createTime: string;
+        updateUser: number;
+        updateTime: string;
     };
 
-  /**
-   * 查询参数
-   */
-  export interface Query {
-    code?: string;
-    name?: string;
-  }
+    export interface Query {
+        label?: string;
+        value?: string;
+        color?: string;
+        sort?: number;
+        description?: string;
+        status?: number;
+        dictId?: number;
+    }
 }
 
-/**
- * 分页查询字典项列表
- */
-export function queryDictItemPage(query: DictItem.Query & PageQuery) {
-  return requestClient.get<DictItem.Res[]>(Api.root, { params: query });
+/** @desc 分页查询字典项列表 */
+export function queryDictItemPage(query: PageQuery & DictItem.Query) {
+    return requestClient.get<DictItem.Res[]>(Api.root, { params: query });
 }
 
-/**
- * 查询字典项列表
- */
-export function queryDictItemList(query: DictItem.Query) {
-  return requestClient.get<DictItem.Res[]>(Api.list, { params: query });
+/** @desc 查询字典项列表 */
+export function queryDictItemList(query: DictItem.Query = {}) {
+    return requestClient.get<DictItem.Res[]>(Api.list, { params: query });
 }
 
-/**
- * 根据ID查询字典项
- */
+/** @desc 通过ID查询字典项 */
 export function queryDictItemById(id: ID) {
-  return requestClient.get<DictItem.Res>(`${Api.root}/${id}`);
+    return requestClient.get<DictItem.Res>(`${Api.root}/${id}`);
 }
 
-/**
- * 创建字典项
- */
-export function createDictItem(data: DictItem.Req) {
-  return requestClient.postWithMsg(Api.root, data);
+/** @desc 新增字典项 */
+export function createDictItem(data: Partial<DictItem.Req>) {
+    return requestClient.postWithMsg(Api.root, data);
 }
 
-/**
- * 更新字典项
- */
-export function updateDictItem(id: ID, data: DictItem.Req) {
-  return requestClient.putWithMsg(`${Api.root}/${id}`, data);
+/** @desc 修改字典项 */
+export function updateDictItem(id: ID, data: Partial<DictItem.Req>) {
+    return requestClient.putWithMsg(`${Api.root}/${id}`, data);
 }
 
-/**
- * 删除字典项
- */
+/** @desc 批量删除字典项 */
 export function deleteDictItemByIds(ids: IDS) {
-  return requestClient.deleteWithMsg(`${Api.root}/${ids}`);
+    return requestClient.deleteWithMsg(`${Api.root}/${ids}`);
 }
+
+

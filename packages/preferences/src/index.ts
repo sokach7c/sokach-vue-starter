@@ -23,18 +23,21 @@ function defineOverridesPreferences(preferences: DeepPartial<Preferences>) {
       // 标签tab 持久化 关闭
       persist: false,
       // 标签页样式
-      styleType: 'plain',
+      styleType: 'card',
+    },
+    breadcrumb: {
+      styleType: 'background',
     },
     theme: {
       //  默认用日间模式
       mode: 'light',
-      // 深色侧边栏
-      semiDarkSidebar: false,
     },
-    // 设置默认的logo
     logo: {
       enable: true,
       source: '/img/logo.png',
+    },
+    navigation: {
+      styleType: 'plain',
     },
     sidebar: {
       // 固定侧边栏按钮
@@ -49,10 +52,6 @@ function defineOverridesPreferences(preferences: DeepPartial<Preferences>) {
       languageToggle: false,
       // 锁屏
       lockScreen: false,
-      // 主题切换
-      themeToggle: false,
-      // 全屏
-      fullscreen: false,
       // 通知
       notification: false,
     },

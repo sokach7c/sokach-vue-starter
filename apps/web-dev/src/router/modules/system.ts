@@ -20,6 +20,26 @@ const routes: RouteRecordRaw[] = [
           title: '字典管理',
         },
       },
+      {
+        name: 'SystemMenu',
+        path: '/system/menu',
+        component: () => import('#/views/system/menu/index.vue'),
+        meta: {
+          affixTab: true,
+          icon: 'mdi:menu',
+          title: '菜单管理',
+        },
+      },
+      {
+        name: 'SystemRole',
+        path: '/system/role',
+        component: () => import('#/views/system/role/index.vue'),
+        meta: {
+          affixTab: true,
+          icon: 'mdi:account-group',
+          title: '角色管理',
+        },
+      },
     ],
   },
 ];

@@ -1,27 +1,30 @@
 $namespace: vben;
 
 // 布局样式
-// .#{$namespace}-layout {
-  // &-sidebar {
-  // }
+.#{$namespace}-layout {
+  &-sidebar {
+    background-image: url('../assets/images/sidebar-bg.jpg') ;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
 
-  // &-header {
-  // }
-
-  // &-content {
-  // }
-
-  // &-tabbar {
-  // }
-
-  // &-footer {
-  // }
-
-  // // 内容区域 wrapper
-  // &-wrapper {
-  //   // header 区域 wrapper
-  //   &-header {
-  //   }
-  // }
+// &-header {
 // }
 
+// &-content {
+// }
+
+// &-tabbar {
+// }
+
+// &-footer {
+// }
+
+// // 内容区域 wrapper
+// &-wrapper {
+//   // header 区域 wrapper
+//   &-header {
+//   }
+// }
+}

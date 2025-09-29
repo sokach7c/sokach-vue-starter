@@ -6,7 +6,9 @@ import Components from 'unplugin-vue-components/vite';
 
 export default defineConfig(async () => {
   return {
-    application: {},
+    application: {
+      print: false,
+    },
     vite: {
       plugins: [
         AutoImport({

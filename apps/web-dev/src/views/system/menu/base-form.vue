@@ -1,18 +1,20 @@
 <script setup lang="ts">
-import type { DictItem } from '#/api/system';
+import type { Menu } from '#/api/system/menu';
 
 import { computed, ref } from 'vue';
+
+import { addFullName, getPopupContainer, listToTree } from '@vben/utils';
 
 import { Button, Modal, Spin } from 'ant-design-vue';
 import { cloneDeep } from 'lodash-es';
 
 import { useVbenForm } from '#/adapter/form';
 import {
-  createDictItem,
-  queryDictItemById,
-  queryDictList,
-  updateDictItem,
-} from '#/api/system';
+  createMenu,
+  queryMenuById,
+  queryMenuList,
+  updateMenu,
+} from '#/api/system/menu';
 import { defaultFormValueGetter, useBeforeCloseDiff } from '#/utils';
 
 import { formSchema, NAME } from './data';
@@ -26,19 +28,19 @@ const loading = ref(true);
 const open = ref(false);
 const isUpdate = computed(() => !!dataId.value);
 const title = computed(() => (isUpdate.value ? `编辑${NAME}` : `新增${NAME}`));
-const dictId = ref<ID>('');
 
 // 保存
 const handleSubmit = async () => {
   try {
-    const { valid } = await formApi.validate();
-    if (!valid) {
+    const res = await formApi.validate();
+
+    if (!res.valid) {
       return;
     }
     const data = cloneDeep(await formApi.getValues());
     await (isUpdate.value
-      ? updateDictItem(dataId.value, data as DictItem.Req)
-      : createDictItem(data as DictItem.Req));
+      ? updateMenu(dataId.value, data as Menu.Req)
+      : createMenu(data as Menu.Req));
     resetInitialized();
     emit('refresh');
     open.value = false;
@@ -67,36 +69,63 @@ const { onBeforeClose, markInitialized, resetInitialized } = useBeforeCloseDiff(
 );
 
 // 初始化表单
-const setupForm = async (id: ID | null = null) => {
+const setupForm = async (pid: ID = '') => {
   open.value = true;
   loading.value = true;
   try {
     // 更新模式，。查询数据
-    if (id) {
-      dataId.value = id;
-      const record = await queryDictItemById(id);
+    if (dataId.value) {
+      const record = await queryMenuById(dataId.value);
       formApi.setValues(record);
-    } else {
-      dataId.value = '';
     }
 
-    // 加载字典列表
-    const dictList = await queryDictList();
+    // 获取菜单树
+    const menuList = await queryMenuList();
+    /**
+     * 这里需要过滤掉按钮类型
+     * 不允许在按钮下添加数据
+     */
+    const filteredList = menuList.filter((item) => item.type !== 3);
+    const menuTree = listToTree(filteredList, {
+      id: 'id',
+      pid: 'parentId',
+    });
+    const fullMenuTree = [
+      {
+        id: 0,
+        title: '根菜单',
+        children: menuTree,
+      },
+    ];
+    addFullName(fullMenuTree, 'title', ' / ');
+
     formApi.updateSchema([
       {
-        fieldName: 'dictId',
         componentProps: {
-          options: dictList.map((item) => ({
-            label: item.name,
-            value: item.id,
-          })),
+          fieldNames: {
+            label: 'title',
+            value: 'id',
+          },
+          getPopupContainer,
+          // 设置弹窗滚动高度 默认256
+          listHeight: 300,
+          showSearch: true,
+          treeData: fullMenuTree,
+          treeDefaultExpandAll: false,
+          // 默认展开的树节点
+          treeDefaultExpandedKeys: [0],
+          treeLine: { showLeafIcon: false },
+          // 筛选的字段
+          treeNodeFilterProp: 'title',
+          treeNodeLabelProp: 'fullName',
         },
-        disabled: true,
+        fieldName: 'parentId',
       },
     ]);
 
-    if (dictId.value) {
-      formApi.setFieldValue('dictId', dictId.value);
+    // 处理parentId
+    if (pid) {
+      await formApi.setFieldValue('parentId', pid);
     }
 
     await markInitialized();
@@ -109,10 +138,12 @@ const setupForm = async (id: ID | null = null) => {
 
 // 关闭
 const onClose = async () => {
-  const isChanged = await onBeforeClose();
-  if (isChanged) {
+  const confirm = await onBeforeClose();
+  if (confirm) {
     open.value = false;
     formApi.resetForm();
+  } else {
+    open.value = true;
   }
 };
 
@@ -123,15 +154,15 @@ const onSubmit = async () => {
 };
 
 // 新增
-const onAdd = async (targetDictId: ID) => {
-  dictId.value = targetDictId;
-  await setupForm();
+const onAdd = async (pid: ID = '') => {
+  dataId.value = '';
+  await setupForm(pid);
 };
 
 // 修改
 const onUpdate = async (id: ID) => {
-  dictId.value = '';
-  await setupForm(id);
+  dataId.value = id;
+  await setupForm();
 };
 
 defineExpose({ onAdd, onUpdate });
@@ -143,10 +174,6 @@ defineExpose({ onAdd, onUpdate });
     v-model:open="open"
     :title="title"
     :width="600"
-    :closable="false"
-    :keyboard="false"
-    destroy-on-close
-    :mask-closable="false"
     @cancel="onClose"
   >
     <Spin :spinning="loading">

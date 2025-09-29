@@ -1,9 +1,14 @@
 import type {FormSchemaGetter} from '#/adapter/form';
 import type {VxeGridProps} from '#/adapter/vxe-table';
 
-export const NAME = '字典';
+export const NAME = '配置';
 
 export const querySchema: FormSchemaGetter = () => [
+    {
+        component: 'Input',
+        fieldName: 'category',
+        label: '类别',
+    },
     {
         component: 'Input',
         fieldName: 'name',
@@ -12,36 +17,49 @@ export const querySchema: FormSchemaGetter = () => [
     {
         component: 'Input',
         fieldName: 'code',
-        label: '编码',
+        label: '键',
+    },
+    {
+        component: 'Input',
+        fieldName: 'value',
+        label: '值',
+    },
+    {
+        component: 'Input',
+        fieldName: 'defaultValue',
+        label: '默认值',
     },
     {
         component: 'Input',
         fieldName: 'description',
         label: '描述',
     },
-    {
-        component: 'Switch',
-        fieldName: 'builtIn',
-        label: '是否内建数据',
-    },
 ];
 
 export const columns: VxeGridProps['columns'] = [
+        {
+            field: 'category',
+            title: '类别',
+        },
         {
             field: 'name',
             title: '名称',
         },
         {
             field: 'code',
-            title: '编码',
+            title: '键',
+        },
+        {
+            field: 'value',
+            title: '值',
+        },
+        {
+            field: 'defaultValue',
+            title: '默认值',
         },
         {
             field: 'description',
             title: '描述',
-        },
-        {
-            field: 'builtIn',
-            title: '是否内建数据',
         },
     {
         field: 'action',
@@ -56,6 +74,12 @@ export const columns: VxeGridProps['columns'] = [
 export const formSchema: FormSchemaGetter = () => [
         {
             component: 'Input',
+            fieldName: 'category',
+            label: '类别',
+            rules: 'required',
+        },
+        {
+            component: 'Input',
             fieldName: 'name',
             label: '名称',
             rules: 'required',
@@ -63,19 +87,25 @@ export const formSchema: FormSchemaGetter = () => [
         {
             component: 'Input',
             fieldName: 'code',
-            label: '编码',
+            label: '键',
+            rules: 'required',
+        },
+        {
+            component: 'Input',
+            fieldName: 'value',
+            label: '值',
+            rules: 'required',
+        },
+        {
+            component: 'Input',
+            fieldName: 'defaultValue',
+            label: '默认值',
             rules: 'required',
         },
         {
             component: 'Input',
             fieldName: 'description',
             label: '描述',
-            rules: 'required',
-        },
-        {
-            component: 'Switch',
-            fieldName: 'builtIn',
-            label: '是否内建数据',
             rules: 'required',
         },
 ];

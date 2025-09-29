@@ -1,65 +1,93 @@
-import { requestClient } from '../request';
+import { requestClient } from '#/api/request';
 
 enum Api {
   list = '/system/menu/list',
-  page = '/system/menu/page',
   root = '/system/menu',
 }
 
+// 菜单类型
 export namespace Menu {
-  // 请求参数
   export interface Req {
-    cache?: boolean;
-    component?: string;
-    external?: boolean;
-    hidden?: boolean;
-    icon?: string;
-    meta?: string;
-    name?: string;
-    parentId?: ID;
+    title: string;
+    parentId: number;
+    type: number;
+    path: string;
+    name: string;
+    component: string;
+    redirect: string;
+    icon: string;
+    external: boolean;
+    cache: boolean;
+    hidden: boolean;
+    permission: string;
+    sort: number;
+    status: number;
+    query: string;
+    meta: string;
+  }
+  export type Res = Req & {
+    createTime: string;
+    createUser: number;
+    id: ID;
+    updateTime: string;
+    updateUser: number;
+  };
+
+  export interface Query {
+    title?: string;
+    parentId?: number;
+    type?: number;
     path?: string;
-    permission?: string;
-    query?: string;
+    name?: string;
+    component?: string;
     redirect?: string;
+    icon?: string;
+    external?: boolean;
+    cache?: boolean;
+    hidden?: boolean;
+    permission?: string;
     sort?: number;
     status?: number;
-    title?: string;
-    type?: number;
+    query?: string;
+    meta?: string;
   }
 
-  // 响应
-  export type Res = BaseEntity &
-    Req & {
-      id: ID;
-    };
-
-  // 查询参数
-  export interface Query {
-    name?: string;
+  export interface Tree {
+    id: ID;
+    title: string;
+    icon?: string;
+    parentId: ID;
+    type: number;
+    children: Tree[];
   }
 }
 
-/** @desc 获取菜单列表 */
-export function getMenuList(query: Menu.Query = {}) {
+/** @desc 分页查询菜单列表 */
+export function queryMenuPage(query: Menu.Query & PageQuery) {
+  return requestClient.get<Menu.Res[]>(Api.root, { params: query });
+}
+
+/** @desc 查询菜单列表 */
+export function queryMenuList(query: Menu.Query = {}) {
   return requestClient.get<Menu.Res[]>(Api.list, { params: query });
 }
 
-/** @desc 根据ID获取菜单 */
-export function getMenuById(id: ID) {
+/** @desc 通过ID查询菜单 */
+export function queryMenuById(id: ID) {
   return requestClient.get<Menu.Res>(`${Api.root}/${id}`);
 }
 
-/** @desc 创建菜单 */
-export function createMenu(data: Menu.Req) {
+/** @desc 新增菜单 */
+export function createMenu(data: Partial<Menu.Req>) {
   return requestClient.postWithMsg(Api.root, data);
 }
 
-/** @desc 更新菜单 */
-export function updateMenu(id: ID, data: Menu.Req) {
+/** @desc 修改菜单 */
+export function updateMenu(id: ID, data: Partial<Menu.Req>) {
   return requestClient.putWithMsg(`${Api.root}/${id}`, data);
 }
 
-/** @desc 删除菜单 */
-export function deleteMenu(id: ID) {
-  return requestClient.deleteWithMsg(`${Api.root}/${id}`);
+/** @desc 批量删除菜单 */
+export function deleteMenuByIds(ids: IDS) {
+  return requestClient.deleteWithMsg(`${Api.root}/${ids}`);
 }

@@ -1,6 +1,6 @@
 <script setup lang="ts" >
-import {createDict, updateDict, queryDictById} from '#/api/system/dict';
-import type { Dict } from '#/api/system/dict';
+import {createConfig, updateConfig, queryConfigById} from '#/api/system/config';
+import type { Config } from '#/api/system/config';
 
 import {computed, ref} from 'vue';
 import {cloneDeep} from 'lodash-es';
@@ -32,8 +32,8 @@ const emit = defineEmits<{
       }
       const data = cloneDeep(await formApi.getValues());
       await (isUpdate.value
-          ? updateDict(dataId.value, data as Dict.Req)
-          : createDict(data as Dict.Req));
+          ? updateConfig(dataId.value, data as Config.Req)
+          : createConfig(data as Config.Req));
       resetInitialized();
       emit('refresh');
       open.value = false;
@@ -68,7 +68,7 @@ const emit = defineEmits<{
     try {
       // 更新模式，。查询数据
       if (dataId.value) {
-        const record = await queryDictById(dataId.value);
+        const record = await queryConfigById(dataId.value);
         formApi.setValues(record);
       }
 

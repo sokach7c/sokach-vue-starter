@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import {ref} from 'vue';
-import {queryDictPage, deleteDictByIds} from '#/api/system/dict';
-import type { Dict } from '#/api/system/dict';
+import {queryDictItemPage, deleteDictItemByIds} from '#/api/system/dict-item';
+import type { DictItem } from '#/api/system/dict-item';
 
 import { Page } from '@vben/common-ui';
 
@@ -28,7 +28,7 @@ import { Page } from '@vben/common-ui';
       proxyConfig: {
         ajax: {
           query: async ({ page }, formValues = {}) => {
-            return await queryDictPage({
+            return await queryDictItemPage({
               pageNum: page.currentPage,
               pageSize: page.pageSize,
               ...formValues,
@@ -52,12 +52,12 @@ import { Page } from '@vben/common-ui';
   };
 
   // 编辑
-  const handleEdit = (row: Dict.Res) => {
+  const handleEdit = (row: DictItem.Res) => {
     baseFormRef.value?.onUpdate(row.id);
   };
 
   // 删除
-  const handleDelete = (row: Dict.Res) => {
+  const handleDelete = (row: DictItem.Res) => {
     Modal.confirm({
       title: '提示',
       content: `确定删除${NAME}[${row.name}]吗？`,
@@ -67,7 +67,7 @@ import { Page } from '@vben/common-ui';
       },
       onOk: async () => {
         try {
-          await deleteDictByIds([row.id]);
+          await deleteDictItemByIds([row.id]);
           await refresh();
         } catch (error) {
           console.error(error);

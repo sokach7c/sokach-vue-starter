@@ -17,11 +17,11 @@ setupVbenVxeTable({
         // 圆角按钮
         round: true,
         // 表格尺寸
-        size: 'medium',
+        size: 'small',
         // 斑马纹
         stripe: true,
         // 边框
-        border: false,
+        border: true,
         // 高度
         height: 'auto',
         formConfig: {
@@ -46,6 +46,15 @@ setupVbenVxeTable({
         scrollY: {
           enabled: true,
           gt: 0,
+        },
+        // 通用树结构配置
+        treeConfig: {
+          parentField: 'parentId',
+          rowField: 'id',
+          // 自动转换为tree 由vxe处理 无需手动转换
+          transform: true,
+          // 刷新接口后 记录展开行的情况
+          reserve: true,
         },
         // 溢出展示形式
         showOverflow: true,

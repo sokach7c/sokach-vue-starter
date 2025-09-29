@@ -9,15 +9,20 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     AButton: typeof import('ant-design-vue/es')['Button']
+    ACard: typeof import('ant-design-vue/es')['Card']
     ADropdown: typeof import('ant-design-vue/es')['Dropdown']
     ADropdownButton: typeof import('ant-design-vue/es')['DropdownButton']
+    AInput: typeof import('ant-design-vue/es')['Input']
     AMenu: typeof import('ant-design-vue/es')['Menu']
     AMenuItem: typeof import('ant-design-vue/es')['MenuItem']
+    ATree: typeof import('ant-design-vue/es')['Tree']
     FileUpload: typeof import('./../components/upload/file-upload.vue')['default']
     ImageUpload: typeof import('./../components/upload/image-upload.vue')['default']
+    MenuSelectTable: typeof import('./../components/tree/menu-select-table.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SelectMenu: typeof import('./../components/tree-menu/select-menu.vue')['default']
     TreeMenu: typeof import('./../components/tree-menu/tree-menu.vue')['default']
+    TreeSelectPanel: typeof import('./../components/tree/tree-select-panel.vue')['default']
   }
 }

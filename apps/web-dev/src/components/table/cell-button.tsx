@@ -16,6 +16,7 @@ export function setupCellButton(vxeUI: VxeUIExport) {
       const finalProps = {
         type: 'primary',
         ...props,
+        text: props?.text || '',
       };
       return <Button v-bind={finalProps}>{finalProps?.text}</Button>;
     },

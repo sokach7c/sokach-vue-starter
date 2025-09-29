@@ -16,7 +16,10 @@ export function setupCellTag(vxeUI: VxeUIExport) {
   vxeUI.renderer.add('CellTag', {
     renderTableDefault({ options, props }, { column, row }) {
       const value = get(row, column.field);
-      const tagOptions = options ?? [];
+      const tagOptions = options ?? [
+        { label: '是', value: true, color: 'blue' },
+        { label: '否', value: false, color: 'red' },
+      ];
       const tagItem = tagOptions.find((item) => item.value === value);
       return (
         <Tag {...props} {...objectOmit(tagItem ?? {}, ['label', 'icon'])}>
